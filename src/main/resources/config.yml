@@ -1,0 +1,22 @@
+# as Text or as Numbers (text,numbers)
+dayTime: text
+displaySleep: true
+# enable or disable spaces between features
+spaces: false
+# The default value for the actionBar (coordinates, biome, entities, dayTime, weather, lightlevel, playedhours)
+default:
+  - coordinates
+  - biome
+  - dayTime
+# Default Text for Example Coordinates (C)Value do not change %s
+defaultText: "&6[&e(&a%s&e)&a%s&6]"
+# Do not change %s
+coordinateFormat: "&6X:%s&6Y:%s&6Z:%s"
+colorForValue: "&a"
+# Save data and load after Start/Reload
+saveLoadData: true
+# Spacers between Features
+spacers: "&4|"
+# Color for (this) as Example (C) do not change %Key%
+keyColor: "&b%Key%&e"
+useEconomy: false

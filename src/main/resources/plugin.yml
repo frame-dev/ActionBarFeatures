@@ -1,0 +1,18 @@
+name: ActionBarFeatures
+version: ${project.version}
+main: ch.framedev.actionBarFeatures.ActionBarFeatures
+api-version: 1.21
+author: FrameDev
+description: A Minecraft plugin to display coordinates, biome, entity count, time, playedHours, armor level and Light Level in the action bar.
+website: https://framedev.ch
+softdepend: [Vault]
+commands:
+  actionbarfeatures:
+    description: Toggle action bar displays for coordinates, biome, entity count, and time.
+    usage: /actionbarfeatures <showcoordinates|showbiome|showentities|showdaytime|showweather|showlightlevel|showplayedhours|showarmorlevel|all|daytime|sleep|default|spaces>
+    permission: actionbarfeatures.use
+    aliases: [sf,abf,ab]
+permissions:
+  actionbarfeatures.use:
+    description: Allows the player to use ActionBarFeatures commands.
+    default: true
