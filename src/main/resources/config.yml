@@ -20,3 +20,4 @@ spacers: "&4|"
 # Color for (this) as Example (C) do not change %Key%
 keyColor: "&b%Key%&e"
 useEconomy: false
+showCurrencySymbol: false

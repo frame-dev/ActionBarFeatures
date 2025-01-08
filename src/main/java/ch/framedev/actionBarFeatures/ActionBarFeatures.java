@@ -42,6 +42,7 @@ public final class ActionBarFeatures extends JavaPlugin implements CommandExecut
 
     private String colorForValue;
     private String spacer;
+    private boolean showCurrencySymbol;
 
     private FileConfiguration config;
     private FileConfiguration playerSaveConfig;
@@ -55,9 +56,6 @@ public final class ActionBarFeatures extends JavaPlugin implements CommandExecut
         instance = this;
 
         this.config = new FileConfiguration(getTempConfigFile(), new File(getDataFolder(), "config.yml"));
-
-        this.config.set("version", getDescription().getVersion());
-        this.config.save();
 
         this.playerSaveConfig = new FileConfiguration(new File(getDataFolder(), "playerSaveConfig.yml"));
         if (new File(getDataFolder(), "playerSaveConfig.yml").exists())
@@ -77,12 +75,14 @@ public final class ActionBarFeatures extends JavaPlugin implements CommandExecut
             spacer = "§4|";
         spacer = spacer.replace("&", "§");
 
+        this.showCurrencySymbol = config.getBoolean("showCurrencySymbol");
+
+        // Load player data
+
         if (config.getBoolean("saveLoadData"))
             loadData();
 
-        getScheduler().runTaskLater(this, () -> {
-            vaultManager = new VaultManager(this);
-        }, 60);
+        getScheduler().runTaskLater(this, () -> this.vaultManager = new VaultManager(this), 60);
 
         getLogger().info("ActionBarFeatures has been enabled!");
     }
@@ -418,7 +418,10 @@ public final class ActionBarFeatures extends JavaPlugin implements CommandExecut
         // General Information
         List<String> generalInfo = Arrays.asList(
                 "§aActionBarFeatures is a plugin that displays various information in the action bar.",
-                "§aUsage: /actionbarfeatures <showcoordinates|showbiome|showentities|showdaytime|showweather|showlightlevel|showplayedhours|showarmorlevel|showbalance|all|daytime|sleep|default|spaces>"
+                "§aUsage: /actionbarfeatures " +
+                        "<showcoordinates|showbiome|showentities|showdaytime|showweather|" +
+                        "showlightlevel|showplayedhours|showarmorlevel|showbalance|" +
+                        "all|daytime|sleep|default|spaces>"
         );
 
         generalInfo.forEach(info -> player.sendMessage(prefix + info));
@@ -638,10 +641,11 @@ public final class ActionBarFeatures extends JavaPlugin implements CommandExecut
             if (balancePlayers.contains(player)) {
                 if (vaultManager != null && vaultManager.isEconomyAvailable()) {
                     double balance = vaultManager.getEconomy().getBalance(player);
-                    appendSection.accept(getKey("B"), spaces ? " " + colorForValue + balance + vaultManager.getEconomy().currencyNamePlural()
-                            : colorForValue + balance + vaultManager.getEconomy().currencyNamePlural());
+                    String value = showCurrencySymbol ? colorForValue + balance + vaultManager.getEconomy().currencyNamePlural() : colorForValue + balance;
+                    appendSection.accept(getKey("B"), spaces ? " " + value
+                            : value);
                 } else {
-                    appendSection.accept(getKey("B"), spaces? " " + colorForValue + "Vault not found" : colorForValue + "Vault not found");
+                    appendSection.accept(getKey("B"), colorForValue + "Vault not found");
                 }
             }
 

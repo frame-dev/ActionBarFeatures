@@ -4,7 +4,7 @@
   <groupId>ch.framedev</groupId>
   <artifactId>ActionBarFeatures</artifactId>
   <name>ActionBarFeatures</name>
-  <version>1.0.3-RELEASE</version>
+  <version>1.0.4-RELEASE</version>
   <build>
     <defaultGoal>clean package</defaultGoal>
     <resources>
